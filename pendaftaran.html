@@ -1,0 +1,159 @@
+<!DOCTYPE html>  <html lang="id">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Formulir Pendaftaran FIBERASI.NET</title>  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">  
+    <style>  
+        body {  
+            font-family: 'Poppins', sans-serif;  
+            line-height: 1.6;  
+            color: #333;  
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);  
+            min-height: 100vh;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            padding: 20px;  
+        }  
+        .container-form {  
+            max-width: 600px;  
+            width: 100%;  
+            background: white;  
+            padding: 40px;  
+            border-radius: 15px;  
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);  
+        }  
+        h1 {  
+            text-align: center;  
+            color: #764ba2;  
+            margin-bottom: 30px;  
+        }  
+        .form-group {  
+            margin-bottom: 20px;  
+        }  
+        label {  
+            display: block;  
+            margin-bottom: 8px;  
+            font-weight: 600;  
+            color: #555;  
+        }  
+        input[type="text"], input[type="email"], textarea, select {  
+            width: 100%;  
+            padding: 12px;  
+            border: 1px solid #ccc;  
+            border-radius: 8px;  
+            box-sizing: border-box;  
+            font-size: 16px;  
+        }  
+        .selected-package {  
+            padding: 10px;  
+            background-color: #f0e6ff;  
+            color: #764ba2;  
+            border-radius: 5px;  
+            font-weight: 600;  
+            text-align: center;  
+            margin-bottom: 20px;  
+            border: 1px dashed #764ba2;  
+        }  
+        button {  
+            background: linear-gradient(135deg, #25D366, #128C7E);  
+            color: white;  
+            padding: 15px 20px;  
+            border: none;  
+            border-radius: 8px;  
+            cursor: pointer;  
+            width: 100%;  
+            font-size: 18px;  
+            font-weight: 700;  
+            transition: opacity 0.3s;  
+        }  
+        button:hover {  
+            opacity: 0.9;  
+        }  
+        .back-link {  
+            display: block;  
+            text-align: center;  
+            margin-top: 20px;  
+            color: #667eea;  
+            text-decoration: none;  
+            font-size: 14px;  
+        }  
+    </style>  
+</head>  
+<body>  <div class="container-form">  
+    <h1><i class="fas fa-file-alt"></i> Formulir Pendaftaran</h1>  <div id="selectedPackageDisplay" class="selected-package">Paket yang dipilih: Belum dipilih</div>  
+  
+<form id="whatsappForm">  
+      
+    <div class="form-group">  
+        <label for="nama"><i class="fas fa-user"></i> Nama Lengkap:</label>  
+        <input type="text" id="nama" name="nama" required>  
+    </div>  
+      
+    <div class="form-group">  
+        <label for="telepon"><i class="fab fa-whatsapp"></i> Nomor Telepon (WA):</label>  
+        <input type="text" id="telepon" name="telepon" placeholder="Contoh: 081234567890" required>  
+    </div>  
+      
+    <div class="form-group">  
+        <label for="alamat"><i class="fas fa-home"></i> Alamat Pemasangan Lengkap:</label>  
+        <textarea id="alamat" name="alamat" rows="4" required></textarea>  
+    </div>  
+      
+    <input type="hidden" id="paketTerpilih" name="paketTerpilih">  
+      
+    <button type="submit">Kirim Pendaftaran via WhatsApp</button>  
+</form>  
+  
+<a href="index.html" class="back-link"><i class="fas fa-chevron-left"></i> Kembali ke Halaman Utama</a>
+
+</div>  <script>  
+    document.addEventListener('DOMContentLoaded', function() {  
+        // Ambil parameter paket dari URL  
+        const urlParams = new URLSearchParams(window.location.search);  
+        let paket = urlParams.get('paket') || 'Tidak Diketahui';  
+          
+        // Bersihkan nama paket (misal: "Basic-10Mbps" menjadi "Basic 10 Mbps")  
+        const cleanPaket = paket.replace(/-/g, ' ');  
+  
+        // Tampilkan paket yang dipilih  
+        document.getElementById('selectedPackageDisplay').textContent = Paket yang dipilih: ${cleanPaket.toUpperCase()};  
+        document.getElementById('paketTerpilih').value = cleanPaket;  
+    });  
+  
+  
+    document.getElementById('whatsappForm').addEventListener('submit', function(event) {  
+        event.preventDefault(); // Mencegah form melakukan submit standar  
+  
+        // 1. Ambil Nilai dari setiap Field  
+        const nama = document.getElementById('nama').value;  
+        const telepon = document.getElementById('telepon').value;  
+        const alamat = document.getElementById('alamat').value;  
+        const paket = document.getElementById('paketTerpilih').value;  
+          
+        // Nomor WhatsApp tujuan (089509617320 diubah ke format internasional 6289509617320)  
+        const waNumber = '6289509617320';   
+  
+        // 2. Buat Teks Pesan  
+        // Tanda %0A adalah kode untuk baris baru (Enter/Line Break)  
+        let pesan = *FORMULIR PENDAFTARAN FIBERASI.NET*%0A%0A;  
+        pesan += Selamat siang, saya ingin mendaftar layanan internet dengan rincian berikut:%0A%0A;  
+        pesan += *1. Paket Dipilih:* ${paket.toUpperCase()}%0A;  
+        pesan += *2. Nama Lengkap:* ${nama}%0A;  
+        pesan += *3. No. Telepon (WA):* ${telepon}%0A;  
+        pesan += *4. Alamat Pemasangan:* ${alamat}%0A%0A;  
+        pesan += Mohon dibantu proses selanjutnya (survei/instalasi). Terima kasih.;  
+  
+        // 3. Encode Pesan untuk URL & Redirect ke WhatsApp  
+        const waURL = https://wa.me/${waNumber}?text=${encodeURIComponent(pesan)};  
+          
+        // Buka link WhatsApp di tab baru  
+        window.open(waURL, '_blank');  
+          
+        // Opsional: Anda bisa menambahkan notifikasi sukses di sini  
+        // alert("Pendaftaran terkirim! Silakan lanjutkan di WhatsApp.");  
+    });  
+</script>  </body>  
+</html>
